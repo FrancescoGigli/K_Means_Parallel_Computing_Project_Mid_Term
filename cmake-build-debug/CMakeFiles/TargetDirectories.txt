@@ -1,0 +1,3 @@
+C:/Users/gigli/CLionProjects/K_Means-Parallel-Computing-Project-Mid-Term/cmake-build-debug/CMakeFiles/K_Means_Parallel_Computing_Project_Mid_Term.dir
+C:/Users/gigli/CLionProjects/K_Means-Parallel-Computing-Project-Mid-Term/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/gigli/CLionProjects/K_Means-Parallel-Computing-Project-Mid-Term/cmake-build-debug/CMakeFiles/rebuild_cache.dir

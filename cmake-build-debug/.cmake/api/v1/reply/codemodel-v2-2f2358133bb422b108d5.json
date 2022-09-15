@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.23"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "K_Means_Parallel_Computing_Project_Mid_Term",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "K_Means_Parallel_Computing_Project_Mid_Term::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-K_Means_Parallel_Computing_Project_Mid_Term-Debug-165c4229ba33e593447d.json",
+					"name" : "K_Means_Parallel_Computing_Project_Mid_Term",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/gigli/CLionProjects/K_Means-Parallel-Computing-Project-Mid-Term/cmake-build-debug",
+		"source" : "C:/Users/gigli/CLionProjects/K_Means-Parallel-Computing-Project-Mid-Term"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
