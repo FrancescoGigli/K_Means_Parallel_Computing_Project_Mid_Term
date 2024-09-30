@@ -34,15 +34,7 @@ To build the project, ensure that you have CUDA and OpenMP installed, along with
    cd kmeans_parallel_computing
    ```
 
-2. Use CMake to configure and build:
-   ```bash
-   mkdir build
-   cd build
-   cmake ..
-   make
-   ```
-
-3. Run the desired executable:
+2. Run the desired executable:
    - For the sequential version:
      ```bash
      ./kmeans_sequential
