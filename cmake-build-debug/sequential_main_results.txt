@@ -1,0 +1,65 @@
+Configuration: 100000 points, 5 clusters
+Total execution time: 0.193241 seconds
+Time per iteration: 0.00966203 seconds
+----------------------------------------
+Configuration: 100000 points, 10 clusters
+Total execution time: 0.321115 seconds
+Time per iteration: 0.0160558 seconds
+----------------------------------------
+Configuration: 100000 points, 20 clusters
+Total execution time: 0.680269 seconds
+Time per iteration: 0.0340134 seconds
+----------------------------------------
+Configuration: 250000 points, 5 clusters
+Total execution time: 0.428656 seconds
+Time per iteration: 0.0214328 seconds
+----------------------------------------
+Configuration: 250000 points, 10 clusters
+Total execution time: 0.747539 seconds
+Time per iteration: 0.037377 seconds
+----------------------------------------
+Configuration: 250000 points, 20 clusters
+Total execution time: 1.36585 seconds
+Time per iteration: 0.0682923 seconds
+----------------------------------------
+Configuration: 500000 points, 5 clusters
+Total execution time: 0.87067 seconds
+Time per iteration: 0.0435335 seconds
+----------------------------------------
+Configuration: 500000 points, 10 clusters
+Total execution time: 1.48592 seconds
+Time per iteration: 0.0742959 seconds
+----------------------------------------
+Configuration: 500000 points, 20 clusters
+Total execution time: 2.97572 seconds
+Time per iteration: 0.148786 seconds
+----------------------------------------
+Configuration: 1000000 points, 5 clusters
+Total execution time: 1.71047 seconds
+Time per iteration: 0.0855234 seconds
+----------------------------------------
+Configuration: 1000000 points, 10 clusters
+Total execution time: 3.09149 seconds
+Time per iteration: 0.154575 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters
+Total execution time: 5.79658 seconds
+Time per iteration: 0.289829 seconds
+----------------------------------------
+Running special K-means test for 1 million points with larger cluster counts.
+Configuration: 1000000 points, 100 clusters
+Total execution time: 24.9891 seconds
+Time per iteration: 1.24945 seconds
+----------------------------------------
+Configuration: 1000000 points, 250 clusters
+Total execution time: 60.862 seconds
+Time per iteration: 3.0431 seconds
+----------------------------------------
+Configuration: 1000000 points, 500 clusters
+Total execution time: 118.835 seconds
+Time per iteration: 5.94176 seconds
+----------------------------------------
+Configuration: 1000000 points, 1000 clusters
+Total execution time: 236.062 seconds
+Time per iteration: 11.8031 seconds
+----------------------------------------

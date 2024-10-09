@@ -1,0 +1,121 @@
+Configuration: 100000 points, 5 clusters, 4 threads
+Total execution time (critical): 0.17309 seconds
+Time per iteration (critical): 0.00865451 seconds
+Total execution time (atomic): 0.132338 seconds
+Time per iteration (atomic): 0.0066169 seconds
+----------------------------------------
+Configuration: 100000 points, 10 clusters, 4 threads
+Total execution time (critical): 0.21171 seconds
+Time per iteration (critical): 0.0105855 seconds
+Total execution time (atomic): 0.19273 seconds
+Time per iteration (atomic): 0.00963649 seconds
+----------------------------------------
+Configuration: 100000 points, 20 clusters, 4 threads
+Total execution time (critical): 0.308768 seconds
+Time per iteration (critical): 0.0154384 seconds
+Total execution time (atomic): 0.238828 seconds
+Time per iteration (atomic): 0.0119414 seconds
+----------------------------------------
+Configuration: 250000 points, 5 clusters, 4 threads
+Total execution time (critical): 0.322605 seconds
+Time per iteration (critical): 0.0161302 seconds
+Total execution time (atomic): 0.302806 seconds
+Time per iteration (atomic): 0.0151403 seconds
+----------------------------------------
+Configuration: 250000 points, 10 clusters, 4 threads
+Total execution time (critical): 0.427325 seconds
+Time per iteration (critical): 0.0213663 seconds
+Total execution time (atomic): 0.332425 seconds
+Time per iteration (atomic): 0.0166213 seconds
+----------------------------------------
+Configuration: 250000 points, 20 clusters, 4 threads
+Total execution time (critical): 0.60936 seconds
+Time per iteration (critical): 0.030468 seconds
+Total execution time (atomic): 0.511244 seconds
+Time per iteration (atomic): 0.0255622 seconds
+----------------------------------------
+Configuration: 500000 points, 5 clusters, 4 threads
+Total execution time (critical): 0.631444 seconds
+Time per iteration (critical): 0.0315722 seconds
+Total execution time (atomic): 0.652212 seconds
+Time per iteration (atomic): 0.0326106 seconds
+----------------------------------------
+Configuration: 500000 points, 10 clusters, 4 threads
+Total execution time (critical): 0.838303 seconds
+Time per iteration (critical): 0.0419152 seconds
+Total execution time (atomic): 0.696926 seconds
+Time per iteration (atomic): 0.0348463 seconds
+----------------------------------------
+Configuration: 500000 points, 20 clusters, 4 threads
+Total execution time (critical): 1.209 seconds
+Time per iteration (critical): 0.0604498 seconds
+Total execution time (atomic): 0.982606 seconds
+Time per iteration (atomic): 0.0491303 seconds
+----------------------------------------
+Configuration: 1000000 points, 5 clusters, 4 threads
+Total execution time (critical): 1.24938 seconds
+Time per iteration (critical): 0.0624691 seconds
+Total execution time (atomic): 1.25425 seconds
+Time per iteration (atomic): 0.0627127 seconds
+----------------------------------------
+Configuration: 1000000 points, 10 clusters, 4 threads
+Total execution time (critical): 1.67609 seconds
+Time per iteration (critical): 0.0838044 seconds
+Total execution time (atomic): 1.40475 seconds
+Time per iteration (atomic): 0.0702376 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters, 4 threads
+Total execution time (critical): 2.60162 seconds
+Time per iteration (critical): 0.130081 seconds
+Total execution time (atomic): 2.09404 seconds
+Time per iteration (atomic): 0.104702 seconds
+----------------------------------------
+Running special parallel K-means test for 1 million points with 20 clusters and varying thread counts.
+Configuration: 1000000 points, 20 clusters, 2 threads
+Total execution time (critical): 3.79862 seconds
+Time per iteration (critical): 0.189931 seconds
+Total execution time (atomic): 3.67473 seconds
+Time per iteration (atomic): 0.183736 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters, 4 threads
+Total execution time (critical): 2.61592 seconds
+Time per iteration (critical): 0.130796 seconds
+Total execution time (atomic): 2.08118 seconds
+Time per iteration (atomic): 0.104059 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters, 6 threads
+Total execution time (critical): 2.52398 seconds
+Time per iteration (critical): 0.126199 seconds
+Total execution time (atomic): 1.6193 seconds
+Time per iteration (atomic): 0.0809651 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters, 8 threads
+Total execution time (critical): 3.0442 seconds
+Time per iteration (critical): 0.15221 seconds
+Total execution time (atomic): 1.39238 seconds
+Time per iteration (atomic): 0.0696188 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters, 10 threads
+Total execution time (critical): 3.46502 seconds
+Time per iteration (critical): 0.173251 seconds
+Total execution time (atomic): 1.24582 seconds
+Time per iteration (atomic): 0.062291 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters, 12 threads
+Total execution time (critical): 3.89001 seconds
+Time per iteration (critical): 0.194501 seconds
+Total execution time (atomic): 1.11305 seconds
+Time per iteration (atomic): 0.0556525 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters, 14 threads
+Total execution time (critical): 4.41706 seconds
+Time per iteration (critical): 0.220853 seconds
+Total execution time (atomic): 1.24017 seconds
+Time per iteration (atomic): 0.0620083 seconds
+----------------------------------------
+Configuration: 1000000 points, 20 clusters, 16 threads
+Total execution time (critical): 4.9228 seconds
+Time per iteration (critical): 0.24614 seconds
+Total execution time (atomic): 1.59454 seconds
+Time per iteration (atomic): 0.079727 seconds
+----------------------------------------
