@@ -1,12 +1,15 @@
 #include "common_functions.h"  // Include common functions
-#include "Cluster.h"            // Include the Cluster class
+#include "Cluster.h"           // Include the Cluster class
 #include <iostream>
 #include <fstream>
-#include <chrono>               // For time measurement
+#include <chrono>              // For time measurement
+#include <cuda_runtime.h>
 
 // Device function to calculate squared Euclidean distance on the GPU
 __device__ double squared_euclidean_distance_device(const Point& pt, const Cluster& cl) {
-    return pow(pt.get_x() - cl.get_x(), 2) + pow(pt.get_y() - cl.get_y(), 2);
+    double dx = pt.get_x() - cl.get_x_coord();
+    double dy = pt.get_y() - cl.get_y_coord();
+    return dx * dx + dy * dy;
 }
 
 // Kernel function to assign points to the nearest cluster (on the GPU)
@@ -27,6 +30,29 @@ __global__ void assign_points(Point* points, Cluster* clusters, int num_points, 
     }
 }
 
+// Kernel function to accumulate point coordinates and count points per cluster (on the GPU)
+__global__ void accumulate_points(Point* points, Cluster* clusters, int num_points) {
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < num_points) {
+        int cluster_id = points[i].get_cluster_id();
+
+        // Use atomic methods
+        clusters[cluster_id].atomic_add_to_new_x_coord(points[i].get_x());
+        clusters[cluster_id].atomic_add_to_new_y_coord(points[i].get_y());
+        clusters[cluster_id].atomic_increment_size();
+    }
+}
+
+// Kernel function to update centroids (on the GPU)
+__global__ void update_centroids(Cluster* clusters, int num_clusters) {
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < num_clusters && clusters[i].get_size() > 0) {
+        clusters[i].set_x_coord(clusters[i].get_new_x_coord() / clusters[i].get_size());
+        clusters[i].set_y_coord(clusters[i].get_new_y_coord() / clusters[i].get_size());
+        clusters[i].reset_values();  // Reset for next iteration
+    }
+}
+
 // K-means algorithm with CUDA, running 20 iterations
 void kmeans_cuda(std::vector<Point>& points, std::vector<Cluster>& clusters, double& total_time) {
     const int max_iterations = 20;
@@ -35,6 +61,7 @@ void kmeans_cuda(std::vector<Point>& points, std::vector<Cluster>& clusters, dou
     // Allocate memory on the GPU
     Point* d_points;
     Cluster* d_clusters;
+
     cudaMalloc(&d_points, points.size() * sizeof(Point));
     cudaMalloc(&d_clusters, clusters.size() * sizeof(Cluster));
 
@@ -44,32 +71,26 @@ void kmeans_cuda(std::vector<Point>& points, std::vector<Cluster>& clusters, dou
 
     // Set up CUDA block and grid sizes
     int blockSize = 256;
-    int numBlocks = (points.size() + blockSize - 1) / blockSize;
+    int numBlocksPoints = (points.size() + blockSize - 1) / blockSize;
+    int numBlocksClusters = (clusters.size() + blockSize - 1) / blockSize;
 
     while (iterations < max_iterations) {
         auto start_iter = std::chrono::high_resolution_clock::now();
 
         // Step 1: Assign points to the nearest cluster (on GPU)
-        assign_points<<<numBlocks, blockSize>>>(d_points, d_clusters, points.size(), clusters.size());
+        assign_points<<<numBlocksPoints, blockSize>>>(d_points, d_clusters, points.size(), clusters.size());
+        cudaDeviceSynchronize();
 
-        // Copy updated points back to host (CPU)
-        cudaMemcpy(points.data(), d_points, points.size() * sizeof(Point), cudaMemcpyDeviceToHost);
+        // Step 2: Accumulate point coordinates for each cluster (on GPU)
+        accumulate_points<<<numBlocksPoints, blockSize>>>(d_points, d_clusters, points.size());
+        cudaDeviceSynchronize();
 
-        // Step 2: Update cluster centroids (sequential step on CPU)
-        for (auto& cluster : clusters) {
-            cluster.delete_values(); // Reset values
-        }
+        // Step 3: Update the cluster centroids (on GPU)
+        update_centroids<<<numBlocksClusters, blockSize>>>(d_clusters, clusters.size());
+        cudaDeviceSynchronize();
 
-        for (const auto& point : points) {
-            clusters[point.get_cluster_id()].add_point(point);
-        }
-
-        for (auto& cluster : clusters) {
-            cluster.update_values();
-        }
-
-        // Copy updated clusters back to GPU
-        cudaMemcpy(d_clusters, clusters.data(), clusters.size() * sizeof(Cluster), cudaMemcpyHostToDevice);
+        // Reset clusters on device for next iteration
+        // This is done within update_centroids kernel
 
         auto end_iter = std::chrono::high_resolution_clock::now();
         double iteration_time = std::chrono::duration<double>(end_iter - start_iter).count();  // Time in seconds
@@ -77,6 +98,9 @@ void kmeans_cuda(std::vector<Point>& points, std::vector<Cluster>& clusters, dou
 
         iterations++;
     }
+
+    // Copy updated clusters back to host (CPU)
+    cudaMemcpy(clusters.data(), d_clusters, clusters.size() * sizeof(Cluster), cudaMemcpyDeviceToHost);
 
     // Free GPU memory
     cudaFree(d_points);

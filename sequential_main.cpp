@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>              // For time measurement
+#include <vector>              // For handling dynamic arrays (vectors)
 
 // K-means algorithm with 20 fixed iterations
 void kmeans(std::vector<Point>& points, std::vector<Cluster>& clusters, double& total_time) {
@@ -29,7 +30,7 @@ void kmeans(std::vector<Point>& points, std::vector<Cluster>& clusters, double& 
 
         // Step 2: Update cluster centroids
         for (auto& cluster : clusters) {
-            cluster.delete_values(); // Reset values
+            cluster.reset_values(); // Reset values (was delete_values())
         }
 
         for (const auto& point : points) {
@@ -37,7 +38,7 @@ void kmeans(std::vector<Point>& points, std::vector<Cluster>& clusters, double& 
         }
 
         for (auto& cluster : clusters) {
-            cluster.update_values();
+            cluster.update_centroid(); // Update centroid (was update_values())
         }
 
         auto end_iter = std::chrono::high_resolution_clock::now();
@@ -50,7 +51,27 @@ void kmeans(std::vector<Point>& points, std::vector<Cluster>& clusters, double& 
     std::cout << "Completed " << max_iterations << " iterations.\n";
 }
 
-// Function to run the K-means algorithm and save results to a file
+// Function to save the points and their clusters, and centroids to a CSV file
+void save_to_csv(const std::vector<Point>& points, const std::vector<Cluster>& clusters, const std::string& filename) {
+    std::ofstream csv_file(filename);
+
+    // Write CSV headers
+    csv_file << "x,y,cluster\n";
+
+    // Write centroids first with a cluster ID of -1 (optional identifier)
+    for (const auto& cluster : clusters) {
+        csv_file << cluster.get_x_coord() << "," << cluster.get_y_coord() << ",-1\n";  // Use -1 for centroid identifier
+    }
+
+    // Write points and their cluster assignments
+    for (const auto& point : points) {
+        csv_file << point.get_x() << "," << point.get_y() << "," << point.get_cluster_id() << "\n";
+    }
+
+    csv_file.close();
+}
+
+// Function to run the K-means algorithm and save results to a file and CSV
 void run_kmeans(int num_points, int num_clusters, std::ofstream& output_file) {
     std::cout << "Running K-means with " << num_points << " points and " << num_clusters << " clusters.\n";
 
@@ -62,6 +83,9 @@ void run_kmeans(int num_points, int num_clusters, std::ofstream& output_file) {
     double total_time = 0.0;
 
     kmeans(points, clusters, total_time);
+
+    // Save points and clusters to CSV (including centroids)
+    save_to_csv(points, clusters, "kmeans_results_" + std::to_string(num_clusters) + "_clusters.csv");
 
     // Calculate time per iteration
     double time_per_iteration = total_time / 20.0;  // We run exactly 20 iterations

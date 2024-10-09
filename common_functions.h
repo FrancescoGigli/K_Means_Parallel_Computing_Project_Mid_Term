@@ -3,8 +3,9 @@
 
 #include <vector>
 #include <random>
+#include <cmath>       // For pow()
 #include "Point.h"
-#include "Cluster.h" // Ensure Point and Cluster are available
+#include "Cluster.h"   // Ensure Point and Cluster are available
 
 // Function to generate random points
 std::vector<Point> generate_points(int num_points) {
@@ -38,8 +39,11 @@ std::vector<Cluster> initialize_clusters(int num_clusters, const std::vector<Poi
 }
 
 // Function to calculate squared Euclidean distance (no sqrt needed for comparisons)
+CUDA_HOST_DEVICE
 double squared_euclidean_distance(const Point& pt, const Cluster& cl) {
-    return pow(pt.get_x() - cl.get_x(), 2) + pow(pt.get_y() - cl.get_y(), 2);
+    double dx = pt.get_x() - cl.get_x_coord();
+    double dy = pt.get_y() - cl.get_y_coord();
+    return dx * dx + dy * dy;
 }
 
 #endif // COMMON_FUNCTIONS_H
