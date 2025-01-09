@@ -1,9 +1,10 @@
-#include "common_functions.h" // Include the common functions
-#include "Cluster.h"           // Include the Cluster class
+// sequential_main.cpp
+#include "common_functions.h"
+#include "Cluster.h"
 #include <iostream>
 #include <fstream>
-#include <chrono>              // For time measurement
-#include <vector>              // For handling dynamic arrays (vectors)
+#include <chrono>
+#include <vector>
 
 // K-means algorithm with 20 fixed iterations
 void kmeans(std::vector<Point>& points, std::vector<Cluster>& clusters, double& total_time) {
@@ -14,31 +15,34 @@ void kmeans(std::vector<Point>& points, std::vector<Cluster>& clusters, double& 
         auto start_iter = std::chrono::high_resolution_clock::now();
 
         // Step 1: Assign points to the nearest cluster
-        for (auto& point : points) {
-            double min_dist = squared_euclidean_distance(point, clusters[0]);
+        for (int i = 0; i < points.size(); ++i) {
+            double min_dist = squared_euclidean_distance(points[i], clusters[0]);
             int nearest_cluster_id = 0;
 
-            for (int i = 1; i < clusters.size(); ++i) {
-                double dist = squared_euclidean_distance(point, clusters[i]);
+            for (int j = 1; j < clusters.size(); ++j) {
+                double dist = squared_euclidean_distance(points[i], clusters[j]);
                 if (dist < min_dist) {
                     min_dist = dist;
-                    nearest_cluster_id = i;
+                    nearest_cluster_id = j;
                 }
             }
-            point.set_id(nearest_cluster_id);
+            points[i].set_id(nearest_cluster_id);
         }
 
-        // Step 2: Update cluster centroids
+
+        // Step 2: Reset cluster values
         for (auto& cluster : clusters) {
-            cluster.reset_values(); // Reset values (was delete_values())
+            cluster.reset_values(); // Reset accumulated values
         }
 
+        // Step 3: Accumulate points in clusters
         for (const auto& point : points) {
             clusters[point.get_cluster_id()].add_point(point);
         }
 
+        // Step 4: Update centroids
         for (auto& cluster : clusters) {
-            cluster.update_centroid(); // Update centroid (was update_values())
+            cluster.update_centroid(); // Update centroid coordinates
         }
 
         auto end_iter = std::chrono::high_resolution_clock::now();
